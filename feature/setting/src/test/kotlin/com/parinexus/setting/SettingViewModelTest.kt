@@ -1,113 +1,107 @@
 package com.parinexus.setting
 
-import com.parinexus.testing.repository.TestUserDataRepository
-import com.parinexus.testing.util.MainDispatcherRule
-import kotlinx.coroutines.test.runTest
-import org.junit.Rule
-import org.junit.rules.TemporaryFolder
-import kotlin.test.Test
+import com.parinexus.domain.repository.UserSettingsRepository
+import com.parinexus.model.Contrast
+import com.parinexus.model.DarkThemeConfig
+import com.parinexus.model.ThemeBrand
+import com.parinexus.model.UserData
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.every
+import io.mockk.mockk
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.*
+import org.junit.After
+import org.junit.Assert.*
+import org.junit.Before
+import org.junit.Test
 
+@OptIn(ExperimentalCoroutinesApi::class)
 class SettingViewModelTest {
 
-    @get:Rule(order = 1)
-    val tmpFolder: TemporaryFolder = TemporaryFolder.builder().assureDeletion().build()
+    private val dispatcher = StandardTestDispatcher()
 
-    @get:Rule(order = 2)
-    val mainDispatcherRule = MainDispatcherRule()
-    private val userDataRepository = TestUserDataRepository()
+    private lateinit var repo: UserSettingsRepository
+    private lateinit var vm: SettingViewModel
+    private lateinit var userDataFlow: MutableStateFlow<UserData>
 
-    @Test
-    fun init() = runTest(mainDispatcherRule.testDispatcher) {
-//        val viewModel = SettingViewModel(
-//            userDataRepository = userDataRepository,
-//        )
-//
-//        viewModel
-//            .settingState
-//            .test {
-//                var state = awaitItem()
-//
-//                assertTrue(state is SettingState.Loading)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Success)
-//
-//                assertEquals(
-//                    SettingState.Success(
-//                        themeBrand = ThemeBrand.DEFAULT,
-//                        darkThemeConfig = DarkThemeConfig.DARK,
-//                    ),
-//                    state,
-//                )
-//
-//                cancelAndIgnoreRemainingEvents()
-//            }
+    private val initial = UserData(
+        themeBrand = ThemeBrand.DEFAULT,
+        darkThemeConfig = DarkThemeConfig.FOLLOW_SYSTEM,
+        useDynamicColor = false,
+        shouldHideOnboarding = false,
+        contrast = Contrast.Normal
+    )
+
+    @Before
+    fun setup() {
+        Dispatchers.setMain(dispatcher)
+
+        repo = mockk(relaxed = true)
+        userDataFlow = MutableStateFlow(initial)
+
+        every { repo.userData } returns userDataFlow
+
+        coEvery { repo.setThemeBrand(any()) } coAnswers {
+            val brand = it.invocation.args[0] as ThemeBrand
+            userDataFlow.value = userDataFlow.value.copy(themeBrand = brand)
+        }
+        coEvery { repo.setDarkThemeConfig(any()) } coAnswers {
+            val cfg = it.invocation.args[0] as DarkThemeConfig
+            userDataFlow.value = userDataFlow.value.copy(darkThemeConfig = cfg)
+        }
+
+        vm = SettingViewModel(repo)
+    }
+
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
     }
 
     @Test
-    fun setThemeTest() = runTest(mainDispatcherRule.testDispatcher) {
-//        val viewModel = SettingViewModel(
-//            userDataRepository = userDataRepository,
-//        )
-//
-//        viewModel
-//            .settingState
-//            .test {
-//                var state = awaitItem()
-//
-//                assertTrue(state is SettingState.Loading)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Success)
-//
-//                viewModel.setThemeBrand(ThemeBrand.PINK)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Loading)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Success)
-//
-//                assertEquals(state.themeBrand, ThemeBrand.PINK)
-//
-//                cancelAndIgnoreRemainingEvents()
-//            }
+    fun init_setsSuccess_withInitialValues() = runTest {
+
+        advanceUntilIdle()
+
+        val s = vm.settingState.value
+        assertTrue(s is SettingState.Success)
+        s as SettingState.Success
+        assertEquals(ThemeBrand.DEFAULT, s.themeBrand)
+        assertEquals(DarkThemeConfig.FOLLOW_SYSTEM, s.darkThemeConfig)
     }
 
     @Test
-    fun setDarkTest() = runTest(mainDispatcherRule.testDispatcher) {
-//        val viewModel = SettingViewModel(
-//            userDataRepository = userDataRepository,
-//        )
-//
-//        viewModel
-//            .settingState
-//            .test {
-//                var state = awaitItem()
-//
-//                assertTrue(state is SettingState.Loading)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Success)
-//
-//                viewModel.setDarkThemeConfig(com.parinexus.model.DarkThemeConfig.LIGHT)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Loading)
-//
-//                state = awaitItem()
-//
-//                assertTrue(state is SettingState.Success)
-//
-//                assertEquals(DarkThemeConfig.LIGHT, state.darkThemeConfig)
-//
-//                cancelAndIgnoreRemainingEvents()
-//            }
+    fun setThemeBrand_updates_repo_and_state() = runTest {
+        advanceUntilIdle()
+
+        vm.setThemeBrand(ThemeBrand.PINK)
+
+        advanceUntilIdle()
+
+        val s = vm.settingState.value
+        assertTrue(s is SettingState.Success)
+        s as SettingState.Success
+        assertEquals(ThemeBrand.PINK, s.themeBrand)
+
+        coVerify(exactly = 1) { repo.setThemeBrand(ThemeBrand.PINK) }
+    }
+
+    @Test
+    fun setDarkThemeConfig_updates_repo_and_state() = runTest {
+        advanceUntilIdle()
+
+        vm.setDarkThemeConfig(DarkThemeConfig.DARK)
+
+        advanceUntilIdle()
+
+        val s = vm.settingState.value
+        assertTrue(s is SettingState.Success)
+        s as SettingState.Success
+        assertEquals(DarkThemeConfig.DARK, s.darkThemeConfig)
+
+        coVerify(exactly = 1) { repo.setDarkThemeConfig(DarkThemeConfig.DARK) }
     }
 }
