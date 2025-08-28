@@ -54,11 +54,9 @@ data class DetailUiState(
     val error: String? = null,
     val note: NotoMind? = null,
 
-    // برای ورودی‌های متن
     val title: TextFieldState = TextFieldState(),
     val content: TextFieldState = TextFieldState(),
 
-    // برای دیالوگ تاریخ/زمان
     val dateDialogUiData: DateDialogUiData = DateDialogUiData(),
     val timePicker: TimePickerState = TimePickerState(12, 0, false),
     val datePicker: DatePickerState = DatePickerState(
