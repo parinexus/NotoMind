@@ -184,7 +184,6 @@ internal fun DetailRoute(
                 addNote = { viewModel.processIntent(DetailIntent.SaveNote) },
             )
 
-            // 📌 BottomSheets
             AddBottomSheet2(
                 show = showModalState,
                 currentColor = note?.color,
