@@ -1,73 +1,73 @@
 package com.parinexus.data.repository
 
-import com.parinexus.analytics.AnalyticsEvent
-import com.parinexus.analytics.AnalyticsHelper
+import com.parinexus.analytics.AnalyticsLogger
+import com.parinexus.analytics.TrackingEvent
 
-internal fun AnalyticsHelper.logNewsResourceBookmarkToggled(
+internal fun AnalyticsLogger.logNewsResourceBookmarkToggled(
     newsResourceId: String,
     isBookmarked: Boolean,
 ) {
     val eventType = if (isBookmarked) "news_resource_saved" else "news_resource_unsaved"
     val paramKey = if (isBookmarked) "saved_news_resource_id" else "unsaved_news_resource_id"
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = eventType,
             extras = listOf(
-                AnalyticsEvent.Param(key = paramKey, value = newsResourceId),
+                TrackingEvent.Param(key = paramKey, value = newsResourceId),
             ),
         ),
     )
 }
 
-internal fun AnalyticsHelper.logTopicFollowToggled(followedTopicId: String, isFollowed: Boolean) {
+internal fun AnalyticsLogger.logTopicFollowToggled(followedTopicId: String, isFollowed: Boolean) {
     val eventType = if (isFollowed) "topic_followed" else "topic_unfollowed"
     val paramKey = if (isFollowed) "followed_topic_id" else "unfollowed_topic_id"
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = eventType,
             extras = listOf(
-                AnalyticsEvent.Param(key = paramKey, value = followedTopicId),
+                TrackingEvent.Param(key = paramKey, value = followedTopicId),
             ),
         ),
     )
 }
 
-internal fun AnalyticsHelper.logThemeChanged(themeName: String) =
+internal fun AnalyticsLogger.logThemeChanged(themeName: String) =
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = "theme_changed",
             extras = listOf(
-                AnalyticsEvent.Param(key = "theme_name", value = themeName),
+                TrackingEvent.Param(key = "theme_name", value = themeName),
             ),
         ),
     )
 
-internal fun AnalyticsHelper.logContrastChanged(contrastName: String) =
+internal fun AnalyticsLogger.logContrastChanged(contrastName: String) =
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = "Contrast_changed",
             extras = listOf(
-                AnalyticsEvent.Param(key = "theme_name", value = contrastName),
+                TrackingEvent.Param(key = "theme_name", value = contrastName),
             ),
         ),
     )
 
-internal fun AnalyticsHelper.logDarkThemeConfigChanged(darkThemeConfigName: String) =
+internal fun AnalyticsLogger.logDarkThemeConfigChanged(darkThemeConfigName: String) =
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = "dark_theme_config_changed",
             extras = listOf(
-                AnalyticsEvent.Param(key = "dark_theme_config", value = darkThemeConfigName),
+                TrackingEvent.Param(key = "dark_theme_config", value = darkThemeConfigName),
             ),
         ),
     )
 
-internal fun AnalyticsHelper.logDynamicColorPreferenceChanged(useDynamicColor: Boolean) =
+internal fun AnalyticsLogger.logDynamicColorPreferenceChanged(useDynamicColor: Boolean) =
     logEvent(
-        AnalyticsEvent(
+        TrackingEvent(
             type = "dynamic_color_preference_changed",
             extras = listOf(
-                AnalyticsEvent.Param(
+                TrackingEvent.Param(
                     key = "dynamic_color_preference",
                     value = useDynamicColor.toString(),
                 ),
@@ -75,9 +75,9 @@ internal fun AnalyticsHelper.logDynamicColorPreferenceChanged(useDynamicColor: B
         ),
     )
 
-internal fun AnalyticsHelper.logOnboardingStateChanged(shouldHideOnboarding: Boolean) {
+internal fun AnalyticsLogger.logOnboardingStateChanged(shouldHideOnboarding: Boolean) {
     val eventType = if (shouldHideOnboarding) "onboarding_complete" else "onboarding_reset"
     logEvent(
-        AnalyticsEvent(type = eventType),
+        TrackingEvent(type = eventType),
     )
 }

@@ -4,8 +4,8 @@ import com.parinexus.data.model.toLabel
 import com.parinexus.data.model.toLabelEntity
 import com.parinexus.data.model.toNoteLabel
 import com.parinexus.data.model.toNoteLabelEntity
-import com.parinexus.database.dao.LabelDao
 import com.parinexus.database.dao.NoteLabelDao
+import com.parinexus.database.dao.TagDao
 import com.parinexus.domain.repository.NoteTagRepository
 import com.parinexus.model.Label
 import com.parinexus.model.NoteLabel
@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 internal class NoteTagRepositoryImpl
 @Inject constructor(
-    private val labelDao: LabelDao,
+    private val labelDao: TagDao,
     private val noteLabelDao: NoteLabelDao,
 ) : NoteTagRepository {
 

@@ -1,7 +1,7 @@
 package com.parinexus.data.repository
 
 import com.parinexus.common.IContentManager
-import com.parinexus.database.dao.LabelDao
+import com.parinexus.database.dao.TagDao
 import com.parinexus.database.dao.NoteCheckDao
 import com.parinexus.database.dao.NoteDao
 import com.parinexus.database.dao.NoteImageDao
@@ -34,7 +34,7 @@ class NoteRepositoryTest {
     private lateinit var noteImageDao: NoteImageDao
     private lateinit var noteLabelDao: NoteLabelDao
     private lateinit var notepadDao: NotepadDao
-    private lateinit var labelDao: LabelDao
+    private lateinit var labelDao: TagDao
     private lateinit var pathDao: PathDao
     private lateinit var contentManager: IContentManager
 

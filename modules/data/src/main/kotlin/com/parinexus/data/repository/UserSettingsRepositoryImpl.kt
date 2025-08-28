@@ -1,6 +1,6 @@
 package com.parinexus.data.repository
 
-import com.parinexus.analytics.AnalyticsHelper
+import com.parinexus.analytics.AnalyticsLogger
 import com.parinexus.datastore.UserPreferencesRepository
 import com.parinexus.domain.repository.UserSettingsRepository
 import com.parinexus.model.Contrast
@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 internal class UserSettingsRepositoryImpl @Inject constructor(
     private val userPreferencesRepository: UserPreferencesRepository,
-    private val analyticsHelper: AnalyticsHelper,
+    private val analyticsHelper: AnalyticsLogger,
 ) : UserSettingsRepository {
 
     override val userData: Flow<UserData> =

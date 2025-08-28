@@ -1,7 +1,7 @@
 package com.parinexus.data.model
 
 import com.parinexus.database.model.FullLabel
-import com.parinexus.database.model.LabelEntity
+import com.parinexus.database.model.TagEntity
 import com.parinexus.database.model.NoteCheckEntity
 import com.parinexus.database.model.NoteEntity
 import com.parinexus.database.model.NoteImageEntity
@@ -19,12 +19,12 @@ private fun Long?.sanitizeId(): Long = when (this) {
     else -> this
 }
 
-fun LabelEntity.toLabel(): Label = Label(
+fun TagEntity.toLabel(): Label = Label(
     id = id,
     label = name
 )
 
-fun Label.toLabelEntity(): LabelEntity = LabelEntity(
+fun Label.toLabelEntity(): TagEntity = TagEntity(
     id = id.sanitizeId(),
     name = label
 )
