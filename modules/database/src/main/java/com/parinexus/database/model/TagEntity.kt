@@ -9,7 +9,7 @@ import androidx.room.PrimaryKey
     tableName = "label_table",
     indices = [Index(value = ["name"], unique = true)]
 )
-data class LabelEntity(
+data class TagEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     val id: Long = 0L,

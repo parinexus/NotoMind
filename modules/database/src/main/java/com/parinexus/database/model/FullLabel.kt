@@ -6,6 +6,6 @@ import androidx.room.Relation
 data class FullLabel(
     @Embedded
     val noteLabel: NoteLabelEntity,
-    @Relation(entity = LabelEntity::class, entityColumn = "id", parentColumn = "label_id")
-    val label: LabelEntity,
+    @Relation(entity = TagEntity::class, entityColumn = "id", parentColumn = "label_id")
+    val label: TagEntity,
 )

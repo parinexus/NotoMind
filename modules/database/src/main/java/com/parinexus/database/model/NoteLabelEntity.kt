@@ -17,7 +17,7 @@ import androidx.room.Index
             onUpdate = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = LabelEntity::class,
+            entity = TagEntity::class,
             parentColumns = ["id"],
             childColumns = ["label_id"],
             onDelete = ForeignKey.CASCADE,
