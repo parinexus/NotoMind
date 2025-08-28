@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="modules_designsystem_note">Note</string>
+    <string name="modules_designsystem_title">Intitulé</string>
+    <string name="modules_designsystem_hide_checkboxes">Cacher les cases à cocher</string>
+    <string name="modules_designsystem_delete_checked_items">Supprimer les éléments sélectionnés</string>
+    <string name="modules_designsystem_uncheck_all_items">Tout décocher</string>
+    <string name="modules_designsystem_subject">Objet</string>
+    <string name="modules_designsystem_add_list_item">Ajouter un nouvel élément</string>
+    <string name="modules_designsystem_checked_items">Éléments sélectionnés</string>
+    <string name="modules_designsystem_edited">Mis à jour</string>
+    <string name="modules_designsystem_take_photo">Capturer une photo</string>
+    <string name="modules_designsystem_add_image">Insérer une image</string>
+    <string name="modules_designsystem_drawing">Croquis</string>
+    <string name="modules_designsystem_recording">Enregistrement audio</string>
+    <string name="modules_designsystem_checkboxes">Cases de sélection</string>
+    <string name="modules_designsystem_color">Teinte</string>
+    <string name="modules_designsystem_background">Fond</string>
+    <string name="modules_designsystem_delete">Effacer</string>
+    <string name="modules_designsystem_make_a_copy">Dupliquer</string>
+    <string name="modules_designsystem_send">Partager</string>
+    <string name="modules_designsystem_labels">Libellés</string>
+    <string name="modules_designsystem_grab_image_text">Reconnaître le texte dans l\'image</string>
+    <string name="modules_designsystem_copy">Copier dans le presse-papiers</string>
+    <string name="modules_designsystem_edit_label">Éditer l\'étiquette</string>
+    <string name="modules_designsystem_create_new_label">Nouvelle étiquette</string>
+    <string name="modules_designsystem_label_already_exists">\"Cette étiquette existe déjà\"</string>
+    <string name="modules_designsystem_add_note">Nouvelle note</string>
+    <string name="modules_designsystem_pin">Épingler en haut</string>
+    <string name="modules_designsystem_other">Autres</string>
+    <string name="modules_designsystem_archive">Archives</string>
+    <string name="modules_designsystem_rename_label">Renommer le libellé</string>
+    <string name="modules_designsystem_delete_label">Supprimer le libellé</string>
+    <string name="modules_designsystem_empty_trash">Nettoyer la corbeille</string>
+    <string name="modules_designsystem_search_note">Chercher une note</string>
+    <string name="modules_designsystem_rename">Changer le nom</string>
+    <string name="modules_designsystem_cancel">Annuler l\'action</string>
+    <string name="modules_designsystem_take_image">Capturer une image</string>
+    <string name="modules_designsystem_choose_image">Sélectionner une image</string>
+    <string name="modules_designsystem_notes">Mes notes</string>
+    <string name="modules_designsystem_reminders">Mes rappels</string>
+    <string name="modules_designsystem_edit">Éditer</string>
+    <string name="modules_designsystem_trash">Éléments supprimés</string>
+    <string name="modules_designsystem_lists">Listes de tâches</string>
+    <string name="modules_designsystem_types">Catégories</string>
+    <string name="modules_designsystem_images">Photos et images</string>
+    <string name="modules_designsystem_voice">Audio</string>
+    <string name="modules_designsystem_drawings">Croquis</string>
+    <string name="modules_designsystem_more">Plus d\'options</string>
+    <string name="modules_designsystem_less">Réduire</string>
+    <string name="modules_designsystem_settings">Réglages</string>
+    <string name="modules_designsystem_enter_text">Saisissez du texte</string>
+    <string name="modules_designsystem_create">Nouveau</string>
+    <string name="modules_designsystem_last_update">Dernière modification</string>
+    <string name="modules_designsystem_version">Numéro de version</string>
+    <string name="modules_designsystem_notomind" translatable="false">NotoMind</string>
+    <string name="modules_designsystem_terms_and_condition">Conditions d\'utilisation</string>
+    <string name="modules_designsystem_default_notification_channel_id" translatable="false">fcm_default_channel</string>
+</resources>
