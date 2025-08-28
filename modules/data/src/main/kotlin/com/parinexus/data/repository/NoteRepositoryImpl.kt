@@ -6,14 +6,14 @@ import com.parinexus.data.model.toNoteCheckEntity
 import com.parinexus.data.model.toNoteEntity
 import com.parinexus.data.model.toNoteImageEntity
 import com.parinexus.data.model.toNotePad
-import com.parinexus.database.dao.LabelDao
+import com.parinexus.database.dao.TagDao
 import com.parinexus.database.dao.NoteCheckDao
 import com.parinexus.database.dao.NoteDao
 import com.parinexus.database.dao.NoteImageDao
 import com.parinexus.database.dao.NoteLabelDao
 import com.parinexus.database.dao.NotepadDao
 import com.parinexus.database.dao.PathDao
-import com.parinexus.database.model.LabelEntity
+import com.parinexus.database.model.TagEntity
 import com.parinexus.database.model.NoteLabelEntity
 import com.parinexus.domain.repository.NoteRepository
 import com.parinexus.model.NotoMind
@@ -40,7 +40,7 @@ internal class NoteRepositoryImpl
     private val noteImageDao: NoteImageDao,
     private val noteLabelDao: NoteLabelDao,
     private val notePadDao: NotepadDao,
-    private val labelDao: LabelDao,
+    private val labelDao: TagDao,
     private val pathDao: PathDao,
     private val contentManager: IContentManager,
 ) : NoteRepository {
@@ -59,7 +59,7 @@ internal class NoteRepositoryImpl
         val labelIds = mutableListOf<Long>()
         for (label in notoMind.labels) {
             val name = label.label
-            val id = labelDao.getIdByName(name) ?: labelDao.insert(LabelEntity(name = name))
+            val id = labelDao.getIdByName(name) ?: labelDao.insert(TagEntity(name = name))
             labelIds += id
         }
 

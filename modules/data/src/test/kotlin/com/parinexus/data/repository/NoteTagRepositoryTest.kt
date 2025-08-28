@@ -5,9 +5,9 @@ import com.parinexus.data.model.toLabel
 import com.parinexus.data.model.toLabelEntity
 import com.parinexus.data.model.toNoteLabel
 import com.parinexus.data.model.toNoteLabelEntity
-import com.parinexus.database.dao.LabelDao
+import com.parinexus.database.dao.TagDao
 import com.parinexus.database.dao.NoteLabelDao
-import com.parinexus.database.model.LabelEntity
+import com.parinexus.database.model.TagEntity
 import com.parinexus.model.Label
 import com.parinexus.model.NoteLabel
 import io.mockk.coEvery
@@ -24,7 +24,7 @@ import org.junit.Test
 @OptIn(ExperimentalCoroutinesApi::class)
 class LabelRepositoryTest {
 
-    private lateinit var labelDao: LabelDao
+    private lateinit var labelDao: TagDao
     private lateinit var noteLabelDao: NoteLabelDao
     private lateinit var repository: NoteTagRepositoryImpl
 
@@ -38,7 +38,7 @@ class LabelRepositoryTest {
     @Test
     fun `upsert delegates to LabelDao with mapped entities`() = runTest {
         val labels = listOf(sampleLabel(1), sampleLabel(2))
-        coEvery { labelDao.upsert(any<LabelEntity>()) } returns 1L
+        coEvery { labelDao.upsert(any<TagEntity>()) } returns 1L
 
         repository.upsert(labels)
 
