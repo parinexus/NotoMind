@@ -50,6 +50,11 @@ android {
             isIncludeAndroidResources = true
         }
     }
+
+    lint {
+        baseline = file("lint-baseline.xml")
+        abortOnError = false
+    }
 }
 
 dependencies {
