@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<issues format="6" by="lint 8.7.2" type="baseline" client="gradle" dependencies="true" name="AGP (8.7.2)" variant="fatal" version="8.7.2">
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`designsystem_app_icon`&apos; does not start with the project&apos;s resource prefix &apos;`modules_designsystem_`&apos;; rename to &apos;`modules_designsystem_designsystem_app_icon`&apos; ?"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable/designsystem_app_icon.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`designsystem_asset_1`&apos; does not start with the project&apos;s resource prefix &apos;`modules_designsystem_`&apos;; rename to &apos;`modules_designsystem_designsystem_asset_1`&apos; ?"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable/designsystem_asset_1.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`designsystem_asset_2`&apos; does not start with the project&apos;s resource prefix &apos;`modules_designsystem_`&apos;; rename to &apos;`modules_designsystem_designsystem_asset_2`&apos; ?"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable/designsystem_asset_2.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`designsystem_asset_3`&apos; does not start with the project&apos;s resource prefix &apos;`modules_designsystem_`&apos;; rename to &apos;`modules_designsystem_designsystem_asset_3`&apos; ?"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable/designsystem_asset_3.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+    <issue
+        id="ResourceName"
+        message="Resource named &apos;`designsystem_asset_4`&apos; does not start with the project&apos;s resource prefix &apos;`modules_designsystem_`&apos;; rename to &apos;`modules_designsystem_designsystem_asset_4`&apos; ?"
+        errorLine1="&lt;vector xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;"
+        errorLine2=" ~~~~~~">
+        <location
+            file="src/main/res/drawable/designsystem_asset_4.xml"
+            line="1"
+            column="2"/>
+    </issue>
+
+</issues>

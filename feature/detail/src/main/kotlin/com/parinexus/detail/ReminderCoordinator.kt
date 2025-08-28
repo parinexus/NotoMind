@@ -51,8 +51,8 @@ class ReminderCoordinator @Inject constructor(
     fun init(note: NotoMind): ReminderUi {
         val today = clock.nowLocal()
         val baseDateTime = if (note.reminder > 0) {
-            Instant.Companion.fromEpochMilliseconds(note.reminder)
-                .toLocalDateTime(TimeZone.Companion.currentSystemDefault())
+            Instant.fromEpochMilliseconds(note.reminder)
+                .toLocalDateTime(TimeZone.currentSystemDefault())
         } else today
 
         val timeList = defaultTimes()
@@ -67,9 +67,8 @@ class ReminderCoordinator @Inject constructor(
                     3 -> "Night"
                     else -> "Pick time"
                 },
-                value = if (isPick) formatter.timeToString(baseDateTime.time) else formatter.timeToString(
-                    t
-                ),
+                value = if (isPick) formatter.timeToString(baseDateTime.time)
+                else formatter.timeToString(t),
                 trail = if (!isPick) formatter.timeToString(t) else "",
                 isOpenDialog = isPick,
                 enable = if (!isPick) greater else true
@@ -82,7 +81,9 @@ class ReminderCoordinator @Inject constructor(
             DateListUiState("Pick date", formatter.dateToString(baseDateTime.date), isOpenDialog = true, enable = true)
         )
 
-        val intervalIdx = intervalIndex(note.interval)
+        val intervalData = defaultIntervals()
+        val idxFromNote = intervalIndex(note.interval) // باید با ترتیب بالا هم‌راستا باشه
+        val safeIntervalIdx = if (idxFromNote in intervalData.indices) idxFromNote else 0
 
         val dd = DateDialogUiData(
             isEdit = note.reminder > 0,
@@ -91,13 +92,14 @@ class ReminderCoordinator @Inject constructor(
             timeError = today > baseDateTime,
             currentDate = if (note.reminder > 0) dateData.lastIndex else 0,
             dateData = dateData,
-            currentInterval = intervalIdx
+            currentInterval = safeIntervalIdx,
+            interval = intervalData // ⬅️ مهم
         )
 
         return ReminderUi(
             dd = dd,
             datePicker = DatePickerState(
-                initialSelectedDateMillis = baseDateTime.toInstant(TimeZone.Companion.currentSystemDefault()).toEpochMilliseconds(),
+                initialSelectedDateMillis = baseDateTime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
                 locale = Locale.getDefault()
             ),
             timePicker = TimePickerState(
@@ -110,6 +112,14 @@ class ReminderCoordinator @Inject constructor(
             timeList = timeList
         )
     }
+
+    private fun defaultIntervals(): List<DateListUiState> = listOf(
+        DateListUiState(title = "Does not repeat", value = "Does not repeat", isOpenDialog = false, enable = true),
+        DateListUiState(title = "Daily",            value = "Daily",            isOpenDialog = false, enable = true),
+        DateListUiState(title = "Weekly",           value = "Weekly",           isOpenDialog = false, enable = true),
+        DateListUiState(title = "Monthly",          value = "Monthly",          isOpenDialog = false, enable = true),
+        DateListUiState(title = "Yearly",           value = "Yearly",           isOpenDialog = false, enable = true),
+    )
 
     @OptIn(ExperimentalMaterial3Api::class)
     fun onSetDateIndex(ui: ReminderUi, index: Int): ReminderUi {

@@ -183,7 +183,7 @@ fun MyTextField(
                 ),
             enabled = enabled,
             readOnly = readOnly,
-            textStyle = mergedTextStyle,
+            textStyle = mergedTextStyle.copy(color = Color.Black),
             cursorBrush = SolidColor(colors.cursorColor(isError).value),
             keyboardOptions = keyboardOptions,
             interactionSource = interactionSource,
