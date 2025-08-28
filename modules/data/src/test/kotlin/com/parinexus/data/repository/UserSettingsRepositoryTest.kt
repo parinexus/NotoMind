@@ -1,6 +1,6 @@
 package com.parinexus.data.repository
 
-import com.parinexus.analytics.NoOpAnalyticsHelper
+import com.parinexus.analytics.NoOpAnalyticsLogger
 import com.parinexus.datastore.UserPreferencesRepository
 import com.parinexus.datastore.di.testUserPreferencesDataStore
 import com.parinexus.model.Contrast
@@ -27,7 +27,7 @@ class UserSettingsRepositoryTest {
 
     private lateinit var niaPreferencesDataSource: UserPreferencesRepository
 
-    private val analyticsHelper = NoOpAnalyticsHelper()
+    private val analyticsHelper = NoOpAnalyticsLogger()
 
     @get:Rule
     val tmpFolder: TemporaryFolder = TemporaryFolder.builder().assureDeletion().build()

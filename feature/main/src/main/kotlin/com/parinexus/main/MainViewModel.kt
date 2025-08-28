@@ -556,10 +556,7 @@ internal class MainViewModel
                 setime.toInstant(TimeZone.currentSystemDefault()).toEpochMilliseconds(),
                 interval,
             )
-            Log.e("editv", "Set Alarm")
-        } else {
-            Log.e("editv", "Alarm not set $today time $time date$date")
-        }
+        } else {}
     }
 
     fun hideTime() {
