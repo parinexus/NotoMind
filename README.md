@@ -1,164 +1,141 @@
-[![Contributors](https://img.shields.io/github/contributors/parinexus/Play_NotePad.svg?style=for-the-badge)](https://github.com/parinexus/Play_NotePad/graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/parinexus/Play_NotePad.svg?style=for-the-badge)](https://github.com/parinexus/Play_NotePad/metworks/members)
-[![Stargazers](https://img.shields.io/github/stars/parinexus/Play_NotePad.svg?style=for-the-badge)](https://github.com/parinexus/Play_NotePad/stargazers)
-[![Issues](https://img.shields.io/github/issues/parinexus/Play_NotePad.svg?style=for-the-badge)](https://github.com/Wladefant/parinexus/Play_NotePad/issues)
-[![License](https://img.shields.io/github/license/parinexus/Play_NotePad.svg?style=for-the-badge)](https://github.com/parinexus/Play_NotePad/master/LICENSE)
+# NotoMind
 
-# NotePad
+A modern, modular note-taking app built with Jetpack Compose. The goal was to ship a clean architecture with pragmatic trade-offs under interview time constraints, while keeping the codebase easy to extend.
 
-[<img src="/images/ic_launcher-playstore.png" align="left"
-width="200" hspace="10" vspace="10">](/images/ic_launcher-playstore.png)
+> **Architecture note:** The **Detail** feature is implemented with **MVI** to demonstrate unidirectional data-flow; the rest of the features use **MVVM** for speed.
 
-Notepad is a versatile note-taking app that allows you to easily capture and organize your
-thoughts, ideas, and tasks. With a variety of features, Play Notepad makes it easy to stay on top of
-your notes and stay organized.
+---
 
-Play NotePad is available on the Google Play Store:
+## ✨ Features
 
-<p align="left">
-<a href="https://play.google.com/store/apps/details?id=com.parinexus.playnotepad">
-    <img alt="Get it on Google Play"
-        height="70"
-        src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" />
-</a>
+* Create, edit, archive, and restore notes
+* Labeling & label selection flows
+* List/grid layouts, Material 3 UI, edge-to-edge
+* Theming: brand, dark mode config, dynamic color, contrast
+* Simple gallery/attachments surface (local only)
+* Onboarding toggle & basic settings
+* Fully offline (no network/API)
 
-<a href="https://f-droid.org/packages/com.parinexus.playnotepad.foss/">
-    <img alt="Get it on F-Droid"
-        height="70"
-        src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png" />
-</a>
+---
 
-<a href="https://github.com/parinexus/NotePad/releases">
-    <img alt="Get it on GitHub"
-        height="70"
-        src="images/github_image.png" />
-</a>  
+## 🧱 Project Structure
 
+```
+root
+├─ app/                       # Application entry; DI wiring, navigation graph
+├─ build-logic/               # Convention plugins & shared Gradle logic
+│  └─ convention/             # Kotlin/Android/Compose conventions
+├─ feature/
+│  ├─ detail/                 # Note details (MVI)
+│  ├─ gallery/                # Gallery surface
+│  ├─ labelscreen/            # Labels list/CRUD
+│  ├─ main/                   # Notes list/home
+│  ├─ selectlabelscreen/      # Label picker
+│  └─ setting/                # Settings & theming
+├─ modules/
+│  ├─ analytics/              # Analytics abstractions + no-op/logcat impl
+│  ├─ common/                 # Shared utils & extensions
+│  ├─ data/                   # Repositories, mappers, use with local sources only
+│  ├─ database/               # Room entities, DAO, relations
+│  ├─ datastore/              # UserPreferences proto + DataStore serializers/migrations
+│  ├─ designsystem/           # Typography, shapes, components
+│  ├─ domain/                 # Models + business rules
+│  ├─ model/                  # UI/domain models
+│  ├─ testing/                # Test utilities & fakes
+│  └─ ui/                     # Reusable Compose UI building blocks
+└─ …
+```
 
+---
 
-<a href="https://github.com/parinexus/Play_NotePad">View Demo</a>
-·
-<a href="https://github.com/parinexus/Play_NotePad/issues">Report Bug</a>
-·
-<a href="https://github.com/parinexus/Play_NotePad/issues">Request Feature</a>
-  </p>
+## 🏗 Architecture
 
-## About The Project
+* **Clean Architecture** with strict module boundaries
 
-[<img src="/images/screenshot1.png" align="left"
-width="200"
-hspace="10" vspace="10">](images/screenshot1.png)
-[<img src="images/screenshot2.png" align="center"
-width="200"
-hspace="10" vspace="10">](images/screenshot2.png)
-[<img src="images/screenshot3.png" align="center"
-width="200"
-hspace="10" vspace="10">](images/screenshot3.png)
+    * **Domain**: pure Kotlin models & business logic
+    * **Data**: repositories over local sources (Room, DataStore)
+    * **UI**: Compose screens + ViewModels
+* **State management**
 
-Some highlight features:
+    * **MVI** in `feature/detail` (single source of truth, intents → reducer → state)
+    * **MVVM** in other features for faster delivery (StateFlow/Flow + immutable UI state)
+* **DI** via Hilt
+* **Persistence**
 
-- Lazy mode: Automatic scrolling of posts enables you to enjoy amazing posts without moving your
-  thumb
-- Easily create and edit text notes.
-- Snap a photo or choose one from your camera roll to attach to a note.
-- Draw freehand sketches and diagrams to annotate your notes.
-- Record audio notes and play them back later.
-- Keep important notes at the top of your list for easy access.
-- Create checklists and keep track of your tasks with checkboxes.
-- Organize your notes by tagging them with labels.
-- Duplicate notes for easy reference.
-- Share your notes with others via email or messaging.
-- Set reminders for notes so you never forget important tasks or events.
-- Delete notes you no longer need.
-- Keep your notes organized by archiving old or completed tasks.
-- Add color to your notes to make them more visually appealing.
-- Add an image to the background of your notes for a more personalized look.
-- View your notes in list or column format for easy reading and editing.
-- Search your notes by keyword label and type.
-- Use the app offline and access your notes at any time.
+    * **Room** (`modules/database`): normalized entities, DAOs, @Relation/@Junction for note–label
+    * **DataStore Proto** (`modules/datastore`): `UserPreferences`, serializer, and migration stubs
+* **Design System**
 
-## Built With
+    * Material 3, theme palette, contrast levels, dynamic color, shared components
 
-## Clean architecture with 3 main modules
+---
 
-[//]: # (<img src="/images/AndroidTemplate-CleanArchitecture.jpeg" alt="ArchiTecture logo"/>)
+## 📊 Analytics
 
-- Declarative UI (with [Jetpack Compose](https://developer.android.com/jetpack/compose))
-    - Compose Navigation (
-      with [Hilt Support](https://developer.android.com/jetpack/compose/libraries#hilt-navigation)
-      and Assisted Inject Example)
-- Data (for database, API and preferences code)
-- Domain (for business logic and models)
-- AndroidApp (for UI logic, with MVVM)
-- This version brings [Modularization](https://developer.android.com/topic/modularization)
-- Version Management (
-  with [Version catalog](https://docs.gradle.org/current/userguide/platforms.html))
-- Shared Build Logic (
-  with [Convention plugins](https://docs.gradle.org/current/samples/sample_convention_plugins.html))
-- Dependency injection (with [Hilt](http://google.github.io/hilt/))
-- Reactive programming (
-  with [Kotlin Flows](https://kotlinlang.org/docs/reference/coroutines/flow.html))
-- Android architecture components to share ViewModels during configuration changes
-- [Splash Screen](https://developer.android.com/develop/ui/views/launch/splash-screen) Support
-- Google Material 3 [Material Design](https://material.io/blog/android-material-theme-color) library
+* Current: lightweight abstraction in `modules/analytics` with a **Logcat** / no-op logger for dev builds.
+* **Planned**: full **Firebase Analytics** integration
 
-- Edge To Edge Configuration
+    * Consolidated event schema (screen views, actions, performance markers)
+    * Parameter typing & validation
+    * Sessionized reporting + dashboards
 
-[//]: # (## Tests)
+---
 
-[//]: # (- [Mockk]&#40;https://mockk.io/&#41; library)
+## 🧪 Testing
 
-[//]: # (- Unit tests)
+* Current coverage:
 
-[//]: # (- Application tests)
+    * Room DAO tests (insert/upsert/relations/queries)
+    * DataStore serializer + migration tests
+    * Repository tests with in-memory fakes
+* **Planned**:
 
-[//]: # (    - example on how to work with tests)
+    * Compose UI tests for critical flows (list, detail, label selection)
+    * Contract tests for MVI reducers/effects in `feature/detail`
+    * Better `testing` module utilities (fakes, builders, Turbine helpers)
 
-[//]: # (- Activity tests &#40;with [Compose Testing]&#40;https://developer.android.com/jetpack/compose/testing&#41;&#41;)
+---
 
-[//]: # (    - example on how to work with coroutine scopes in tests)
+## 🖥 Tech Stack
 
-## Contribution
+* Kotlin, Coroutines, Flow
+* Jetpack Compose, Material 3, Navigation
+* Hilt (DI)
+* Room (SQLite), DataStore (Proto)
+* Gradle Version Catalog + **build-logic/convention** plugins
+* JUnit, Turbine, kotlinx-coroutines-test
 
-1. Contributions are what make the open source community such an amazing place to learn, inspire,
-   and create. Any contributions you make are **greatly appreciated**.
+---
 
-2. Whether you're helping us fix bugs, improve the docs, or spread the word, we'd love to have you
-   as part of the Gatsby community!
+## 🔌 No API / Network
 
-3. Thanks for your interest in contributing! There are many ways to contribute to this project. Get
-   started here (Contributing.md link)
+This project is **offline-first** and ships with **no remote API**. All data lives locally through Room and DataStore.
 
-### Feedback
+---
 
-Don't forget to give the project a star! Thanks again!
+## 🚀 Build & Run
 
-You can use [Github Discussions](https://github.com/parinexus/Play_NotePad/discussions) for
-discussions about the app or just questions in general. There you can also submit Feature Requests (
-please read the instructions on how to submit a feature request first!) or if you are a developer
-fork this project and create a pull request
+1. Open the project in Android Studio (Giraffe+ recommended)
+2. Sync Gradle
+3. Run the `app` module on a device/emulator (Android 8.0+)
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+> CI/CD scripts are intentionally omitted to keep the interview task focused on app architecture.
 
-Here are other ways you can help:
+---
 
-* [Report bugs](https://github.com/parinexus/Play_NotePad/issues)
+## 🔮 Roadmap
 
-* [Translate the app](https://poeditor.com/join/project/rdWI3SpnSW)
+* Finish Firebase Analytics events + analysis pipeline
+* Expand MVI to more complex flows where it adds value
+* Improve test coverage & stability (UI tests, hermetic repos)
+* Optional: export/import, cloud sync, richer attachments
 
-## Development
+---
 
-## License
+## 📌 Why these choices?
 
-Play Notepad is licensed under the GNU General Public License (GPL-3.0). You can find the license
-text in the `LICENSE` file.
+* **MVI in Detail**: showcases intent/reducer patterns and predictable state, ideal for a screen with edits, side effects, and undo/redo potential.
+* **MVVM elsewhere**: faster to implement for list/filters/settings under time limits while staying maintainable.
+* **Strict modules**: easier to scale, enforce boundaries, and test in isolation.
+* **Design system**: consistent look & feel and easier theming across features.
 
-## Contact
-
-parinexus - [@parinexus](https://twitter.com/parinexus) - parinexus@gmail.com
-
-## Acknowledgments
